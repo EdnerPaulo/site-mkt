@@ -3,169 +3,271 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Técnico: Marketing & Métricas de Produto</title>
+    <title>TERMINAL QTM: PROJEÇÃO DE ATIVOS</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
+        :root {
+            --cyber-black: #050508;
+            --cyber-purple: #8b5cf6;
+            --cyber-purple-glow: rgba(139, 92, 246, 0.35);
+            --cyber-green: #10b981;
+            --cyber-green-glow: rgba(16, 185, 129, 0.35);
+            --glass-bg: rgba(10, 8, 22, 0.65);
+            --glass-border: rgba(139, 92, 246, 0.15);
         }
-        .gradient-bg {
-            background: linear-gradient(135deg, #1e3a8a 0%, #0d9488 100%);
+
+        body {
+            background-color: var(--cyber-black);
+            background-image: 
+                radial-gradient(circle at 5% 10%, rgba(139, 92, 246, 0.12) 0%, transparent 35%),
+                radial-gradient(circle at 95% 90%, rgba(16, 185, 129, 0.08) 0%, transparent 35%);
+            font-family: 'Share Tech Mono', monospace;
+            color: #e2e8f0;
+            position: relative;
+        }
+
+        /* Efeito Scanlines CRT Sutil */
+        body::after {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background-size: 100% 4px;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0.4;
+        }
+
+        /* Efeito Glassmorphism Dinâmico com Cantos de Terminal */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 20px 40px 0 rgba(0, 0, 0, 0.5);
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(139, 92, 246, 0.3);
+            box-shadow: 0 20px 40px 0 rgba(139, 92, 246, 0.05);
+        }
+
+        /* Detalhes de Cantos Tecnológicos nos Containers */
+        .tech-corners::before, .tech-corners::after {
+            content: "";
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-color: var(--cyber-purple);
+            border-style: solid;
+            pointer-events: none;
+        }
+        .tech-corners::before { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
+        .tech-corners::after { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
+
+        /* Efeitos Glow Cyberpunk */
+        .neon-border-green {
+            box-shadow: 0 0 12px var(--cyber-green-glow);
+            border: 1px solid var(--cyber-green);
+        }
+
+        .neon-text-green {
+            text-shadow: 0 0 8px var(--cyber-green-glow);
+            color: var(--cyber-green);
+        }
+
+        .neon-text-purple {
+            text-shadow: 0 0 8px var(--cyber-purple-glow);
+            color: var(--cyber-purple);
+        }
+
+        /* Customização de Inputs */
+        input:focus {
+            outline: none;
+            border-color: var(--cyber-green) !important;
+            box-shadow: 0 0 14px rgba(16, 185, 129, 0.25), inset 0 0 4px rgba(16, 185, 129, 0.1);
+        }
+        
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900 min-h-screen antialiased flex flex-col">
+<body class="min-h-screen flex flex-col justify-between p-4 md:p-8">
 
-    <header class="gradient-bg text-white shadow-lg">
-        <div class="max-w-6xl mx-auto px-4 py-6 md:py-8 flex flex-col md:flex-row md:justify-between md:items-center gap-4">
-            <div>
-                <span class="bg-teal-500 text-xs font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full">Ambiente de Aprendizado Técnico</span>
-                <h1 class="text-2xl md:text-3xl font-bold mt-2">Marketing Digital & Product Metrics</h1>
-                <p class="text-teal-100 text-xs md:text-sm mt-1">Convergência Estratégica entre Engenharia de Canais e Gestão de Produto.</p>
+    <header class="w-full max-w-5xl mx-auto mb-8 relative border border-purple-900/30 bg-black/40 backdrop-blur-sm p-4 rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div class="absolute top-0 left-0 h-[1px] bg-gradient-to-r from-transparent via-purple-500 to-emerald-500 w-full"></div>
+        
+        <div class="flex items-center gap-3">
+            <div class="relative flex h-3 w-3">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
             </div>
-            <div class="text-right hidden md:block">
-                <p class="text-xs text-teal-200">Professor Analista & PMM</p>
-                <p class="text-xs font-mono bg-blue-900 bg-opacity-40 px-2 py-1 rounded mt-1">v1.2.2026</p>
+            <div>
+                <div class="flex items-center gap-2">
+                    <h1 class="text-xl md:text-2xl font-black tracking-widest text-white">QUANTUM_CALC</h1>
+                    <span class="px-1.5 py-0.2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-bold rounded">v2.6_LIVE</span>
+                </div>
+                <p class="text-[10px] text-gray-400 uppercase tracking-widest mt-0.5">Mapeamento Preditivo e Escalonamento Temporal de Ativos</p>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-4 text-[10px] tracking-wider font-mono bg-black/50 px-4 py-2 rounded-lg border border-purple-500/10 w-full sm:w-auto justify-between sm:justify-start">
+            <div class="border-r border-purple-900/40 pr-4">
+                <span class="text-gray-500 block text-[9px] uppercase">Algoritmo</span>
+                <span class="text-white font-bold">LOG_COMPOUNDS</span>
+            </div>
+            <div>
+                <span class="text-gray-500 block text-[9px] uppercase">Core_Status</span>
+                <span class="neon-text-purple font-bold animate-pulse">MATRIX_ENGAGED</span>
             </div>
         </div>
     </header>
 
-    <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <main class="w-full max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 flex-grow items-stretch">
         
-        <div class="lg:col-span-2 space-y-6">
-            <section class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                <h2 class="text-xl font-bold text-blue-900 mb-3 flex items-center gap-2">
-                    <span>📚</span> O que é Marketing Digital? (Abordagem Técnica)
-                </h2>
-                <p class="text-gray-600 leading-relaxed text-sm md:text-base text-justify">
-                    Longe de ser apenas panfletagem digital, o <strong>Marketing Digital</strong> é uma engenharia de dados aplicada aos canais de aquisição. Ele consiste em estruturar um ecossistema tecnológico capaz de mapear a jornada de um usuário através de redes interconectadas, transformando comportamentos em dados estatísticos auditáveis em tempo real.
-                </p>
-                
-                <div class="mt-4 p-4 bg-gray-50 rounded-xl border-l-4 border-blue-900 italic text-sm text-gray-700">
-                    "O marketing digital não deve ser visto isoladamente. Trata-se de uma integração de dados em tempo real para personalizar a experiência do cliente ao longo do framework RACE (Reach, Act, Convert, Engage)."
-                    <span class="block text-right font-semibold text-xs mt-2 text-blue-900">— Dave Chaffey (Digital Marketing Strategy)</span>
+        <section class="lg:col-span-5 glass-panel tech-corners p-6 rounded-xl flex flex-col justify-between border-l-2 border-l-purple-500/50">
+            <div class="space-y-4">
+                <div class="flex justify-between items-center border-b border-purple-900/20 pb-2 mb-4">
+                    <h2 class="text-xs font-bold uppercase tracking-widest text-white/90">Parâmetros Quantitativos</h2>
+                    <span class="text-[9px] text-purple-400 font-mono">[REC_IN_01]</span>
                 </div>
-            </section>
 
-            <section class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                <h2 class="text-xl font-bold text-blue-900 mb-4 flex items-center gap-2">
-                    <span>⚡</span> O Elo com Gestão de Produto (PMM)
-                </h2>
-                <p class="text-gray-600 leading-relaxed text-sm md:text-base mb-3 text-justify">
-                    No ecossistema de produtos digitais (SaaS, Apps), o marketing digital conecta-se diretamente ao Product Marketing. Como define <strong>Marty Cagan</strong> em <em>Inspired</em>, para mitigar o risco de valor de um produto, precisamos validar continuamente o <em>Product-Market Fit (PMF)</em>. 
-                </p>
-                <p class="text-gray-600 leading-relaxed text-sm md:text-base text-justify">
-                    A tração gerada por anúncios, SEO e automações serve como o laboratório de testes empíricos do ciclo de vida do produto.
-                </p>
-            </section>
-        </div>
+                <div class="space-y-1">
+                    <label class="block text-[10px] uppercase text-gray-400 tracking-wider">Aporte Inicial Alocado (R$)</label>
+                    <input type="number" id="capitalInicial" value="5000" class="w-full bg-black/75 border border-purple-500/20 rounded-lg p-2.5 text-sm text-emerald-400 font-mono transition-all">
+                </div>
 
-        <div class="space-y-6">
-            <section class="bg-white p-6 rounded-2xl shadow-md border border-teal-100 lg:sticky lg:top-6">
-                <h2 class="text-xl font-bold text-gray-900 mb-2 flex items-center gap-2">
-                    <span>🧮</span> Simulador de Unit Economics
-                </h2>
-                <p class="text-xs text-gray-500 mb-4">Calcule a saúde financeira (LTV/CAC) da sua estratégia combinada de produto e marketing.</p>
-                
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-semibold uppercase text-gray-600 mb-1">Custo Total de Marketing e Vendas (R$)</label>
-                        <input type="number" id="inputCusto" value="15000" class="w-full bg-gray-50 border border-gray-200 rounded-lg p-2 text-sm focus:outline-none focus:border-teal-500 font-mono">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold uppercase text-gray-600 mb-1">Novos Clientes Adquiridos</label>
-                        <input type="number" id="inputClientes" value="300" class="w-full bg-gray-50 border border-gray-200 rounded-lg p-2 text-sm focus:outline-none focus:border-teal-500 font-mono">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold uppercase text-gray-600 mb-1">Receita Média por Usuário - ARPU (R$)</label>
-                        <input type="number" id="inputArpu" value="120" class="w-full bg-gray-50 border border-gray-200 rounded-lg p-2 text-sm focus:outline-none focus:border-teal-500 font-mono">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold uppercase text-gray-600 mb-1">Taxa de Churn (Cancelamento % Mensal)</label>
-                        <input type="number" id="inputChurn" value="5" step="0.1" class="w-full bg-gray-50 border border-gray-200 rounded-lg p-2 text-sm focus:outline-none focus:border-teal-500 font-mono">
+                <div class="space-y-1">
+                    <label class="block text-[10px] uppercase text-gray-400 tracking-wider">Aporte Mensal Recorrente (R$)</label>
+                    <input type="number" id="aporteMensal" value="500" class="w-full bg-black/75 border border-purple-500/20 rounded-lg p-2.5 text-sm text-emerald-400 font-mono transition-all">
+                </div>
+
+                <div class="space-y-1">
+                    <label class="block text-[10px] uppercase text-gray-400 tracking-wider">Taxa de Rendimento Esperada (% Anual)</label>
+                    <input type="number" id="taxaAnual" value="15" class="w-full bg-black/75 border border-purple-500/20 rounded-lg p-2.5 text-sm text-emerald-400 font-mono transition-all">
+                </div>
+
+                <div class="space-y-1">
+                    <label class="block text-[10px] uppercase text-gray-400 tracking-wider">Target / Meta de Liquidez (R$)</label>
+                    <input type="number" id="metaObjetivo" value="100000" class="w-full bg-black/75 border border-purple-500/20 rounded-lg p-2.5 text-sm text-emerald-400 font-mono transition-all">
+                </div>
+            </div>
+
+            <button onclick="processarProjecao()" class="w-full mt-6 bg-purple-600/10 hover:bg-emerald-500/10 text-purple-400 hover:text-emerald-400 font-bold py-3 px-4 rounded-lg border border-purple-500/30 hover:border-emerald-500 transition-all duration-300 uppercase tracking-widest text-xs neon-border-green">
+                Executar Projeção Algorítmica
+            </button>
+        </section>
+
+        <section class="lg:col-span-7 flex flex-col gap-4 justify-between">
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="glass-panel tech-corners p-4 rounded-xl border-l-2 border-l-emerald-500/50 flex flex-col justify-between h-20">
+                    <span class="text-[9px] uppercase text-gray-400 tracking-wider block">Cronologia Alcançada</span>
+                    <span id="outTempo" class="text-xl font-bold neon-text-green font-mono">0 meses</span>
+                </div>
+                <div class="glass-panel tech-corners p-4 rounded-xl border-l-2 border-l-white/30 flex flex-col justify-between h-20">
+                    <span class="text-[9px] uppercase text-gray-400 tracking-wider block">Total de Capital Injetado</span>
+                    <span id="outCapitalInvestido" class="text-xl font-bold text-white font-mono">R$ 0,00</span>
+                </div>
+            </div>
+
+            <div class="glass-panel tech-corners p-6 rounded-xl border border-purple-500/20 flex-grow flex flex-col justify-between gap-6">
+                <div>
+                    <div class="flex justify-between items-center border-b border-purple-900/30 pb-2 mb-4">
+                        <h3 class="text-xs uppercase font-bold tracking-widest text-purple-400">Sumário da Projeção Consolada</h3>
+                        <span class="text-[9px] bg-purple-950/40 text-purple-300 px-2 py-0.5 rounded border border-purple-500/30 font-mono">OUTPUT_MATRIZ</span>
                     </div>
                     
-                    <button onclick="calcularMetricas()" class="w-full bg-blue-900 hover:bg-blue-800 text-white font-medium py-2.5 rounded-lg text-sm transition-colors mt-2">
-                        Executar Análise de Dados
-                    </button>
-                </div>
-
-                <div class="mt-6 pt-6 border-t border-gray-100 space-y-4">
-                    <div class="grid grid-cols-2 gap-2">
-                        <div class="bg-gray-50 p-3 rounded-xl">
-                            <span class="block text-[10px] uppercase font-bold text-gray-500">CAC Técnico</span>
-                            <span id="resCAC" class="text-base font-bold text-gray-800 font-mono">R$ 0,00</span>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex justify-between items-center bg-black/20 p-2 rounded border border-white/5">
+                            <span class="text-gray-400 text-xs uppercase tracking-wider">Montante Final Bruto:</span>
+                            <span id="outMontanteFinal" class="font-bold text-white font-mono">R$ 0,00</span>
                         </div>
-                        <div class="bg-gray-50 p-3 rounded-xl">
-                            <span class="block text-[10px] uppercase font-bold text-gray-500">LTV Estimado</span>
-                            <span id="resLTV" class="text-base font-bold text-gray-800 font-mono">R$ 0,00</span>
+                        <div class="flex justify-between items-center bg-black/20 p-2 rounded border border-white/5">
+                            <span class="text-gray-400 text-xs uppercase tracking-wider">Rendimento em Juros Puros:</span>
+                            <span id="outJurosAcumulados" class="font-bold text-emerald-400 font-mono">R$ 0,00</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-black/20 p-2 rounded border border-white/5">
+                            <span class="text-gray-400 text-xs uppercase tracking-wider">Multiplicador Alocativo:</span>
+                            <span id="outEficiencia" class="font-bold neon-text-purple font-mono">0.0%</span>
                         </div>
                     </div>
-
-                    <div id="badgeStatus" class="p-4 rounded-xl text-center text-sm font-semibold flex flex-col items-center justify-center gap-1">
-                        <span class="text-xs uppercase opacity-75 font-normal">Relação LTV : CAC</span>
-                        <span id="resProporcao" class="text-xl font-black tracking-wide font-mono">0.0x</span>
-                        <span id="resMensagem" class="text-xs mt-1 font-normal">Aguardando dados...</span>
-                    </div>
                 </div>
-            </section>
-        </div>
 
+                <div class="p-3 bg-black/80 rounded-lg border border-purple-900/40 font-mono text-xs text-purple-300/80 flex items-center gap-2">
+                    <span class="text-emerald-400 animate-pulse">&gt;</span> 
+                    <span id="logMensagem" class="truncate">Aguardando gatilho do operador para compilação...</span>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <footer class="bg-gray-900 text-gray-400 text-xs py-6 mt-12 border-t border-gray-800">
-        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
-            <p>&copy; 2026 Framework de Ensino Técnico. Desenvolvido para deploy escalável no GitHub e Netlify.</p>
-            <p class="text-gray-500">Boas práticas Mobile-First, Tailwind Engine e Vanilla JS.</p>
-        </div>
+    <footer class="w-full max-w-5xl mx-auto mt-6 text-center text-[9px] text-gray-600 uppercase tracking-widest">
+        Validações matemáticas exponenciais lineares. Criptoativos e ativos digitais contêm volatilidade. Guarde suas chaves.
     </footer>
 
     <script>
-        function calcularMetricas() {
-            // Captura de Inputs do DOM
-            const custoTotal = parseFloat(document.getElementById('inputCusto').value) || 0;
-            const novosClientes = parseFloat(document.getElementById('inputClientes').value) || 0;
-            const arpu = parseFloat(document.getElementById('inputArpu').value) || 0;
-            const churnPercent = parseFloat(document.getElementById('inputChurn').value) || 0;
+        function processarProjecao() {
+            // Captura de variáveis dos nós do DOM
+            const capitalInicial = parseFloat(document.getElementById('capitalInicial').value) || 0;
+            const aporteMensal = parseFloat(document.getElementById('aporteMensal').value) || 0;
+            const taxaAnual = parseFloat(document.getElementById('taxaAnual').value) || 0;
+            const metaObjetivo = parseFloat(document.getElementById('metaObjetivo').value) || 0;
 
-            // Tratamento contra divisão por zero e inconsistências
-            if (novosClientes <= 0 || churnPercent <= 0) {
-                alert('Por favor, insira valores válidos maiores que zero para Clientes e Churn.');
+            // Filtros de Integridade Estrutural
+            if (capitalInicial >= metaObjetivo) {
+                document.getElementById('logMensagem').innerText = "ERRO: Capital inicial inserido já atinge o target de segurança.";
+                return;
+            }
+            if (taxaAnual <= 0 || (aporteMensal <= 0 && capitalInicial <= 0)) {
+                document.getElementById('logMensagem').innerText = "ERRO: Vetores de rendimento ou aportes nulos impossibilitam cálculo.";
                 return;
             }
 
-            // Fórmulas de Engenharia Financeira de Marketing
-            const cac = custoTotal / novosClientes;
-            const churnDecimal = churnPercent / 100;
-            const ltv = arpu / churnDecimal;
-            const proporcao = ltv / cac;
+            // Conversão de Taxa Anual para Mensal Composta Equivalente
+            const taxaMensal = Math.pow((1 + (taxaAnual / 100)), (1 / 12)) - 1;
 
-            // Atualização do Output Visual
-            document.getElementById('resCAC').innerText = 'R$ ' + cac.toFixed(2).replace('.', ',');
-            document.getElementById('resLTV').innerText = 'R$ ' + ltv.toFixed(2).replace('.', ',');
-            document.getElementById('resProporcao').innerText = proporcao.toFixed(1) + 'x';
+            let saldoAtual = capitalInicial;
+            let totalInvestido = capitalInicial;
+            let meses = 0;
+            const safetyCap = 1200; // Trava de proteção em 100 anos
 
-            // Avaliação Heurística da Saúde da Empresa/Produto (Benchmark de Mercado)
-            const badge = document.getElementById('badgeStatus');
-            const mensagem = document.getElementById('resMensagem');
-
-            if (proporcao >= 3.0) {
-                badge.className = "p-4 rounded-xl text-center text-sm font-semibold flex flex-col items-center justify-center gap-1 bg-green-50 text-green-800 border border-green-200";
-                mensagem.innerText = "Operação Saudável e Altamente Escalável (Benchmark Cagan/Kotler).";
-            } else if (proporcao >= 1.5 && proporcao < 3.0) {
-                badge.className = "p-4 rounded-xl text-center text-sm font-semibold flex flex-col items-center justify-center gap-1 bg-yellow-50 text-yellow-800 border border-yellow-200";
-                mensagem.innerText = "Alerta: Eficiência de canais ou retenção moderada. Otimize o produto.";
-            } else {
-                badge.className = "p-4 rounded-xl text-center text-sm font-semibold flex flex-col items-center justify-center gap-1 bg-red-50 text-red-800 border border-red-200";
-                mensagem.innerText = "Risco Crítico de Inviabilidade de Negócio. CAC supera retorno financeiro.";
+            // Ciclo iterativo de acumulação contínua
+            while (saldoAtual < metaObjetivo && meses < safetyCap) {
+                meses++;
+                saldoAtual += aporteMensal;
+                totalInvestido += aporteMensal;
+                saldoAtual = saldoAtual * (1 + taxaMensal);
             }
+
+            const jurosAcumulados = saldoAtual - totalInvestido;
+            const eficiencia = (jurosAcumulados / totalInvestido) * 100;
+
+            // Instanciação de formatação para padrão financeiro BRL
+            const formatarMoeda = (valor) => valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+            // Injeção limpa de dados processados nos elementos HTML
+            document.getElementById('outTempo').innerText = meses >= safetyCap ? "TIMEOUT (+100 ANOS)" : `${meses} MESES (~${(meses/12).toFixed(1)} ANOS)`;
+            document.getElementById('outCapitalInvestido').innerText = formatarMoeda(totalInvestido);
+            document.getElementById('outMontanteFinal').innerText = formatarMoeda(saldoAtual);
+            document.getElementById('outJurosAcumulados').innerText = formatarMoeda(jurosAcumulados);
+            document.getElementById('outEficiencia').innerText = `+${eficiencia.toFixed(1)}%`;
+
+            // Mensagem de log dinâmico no terminal
+            document.getElementById('logMensagem').innerText = `COMPILAÇÃO CONCLUÍDA: Target simulado com taxa contínua de ${(taxaMensal * 100).toFixed(4)}% ao mês.`;
         }
 
-        // Execução primária ao iniciar a página para não carregar zerado
+        // Execução no primeiro disparo de renderização de janela
         window.onload = function() {
-            calcularMetricas();
-        };
+            processarProjecao();
+        }
     </script>
 </body>
 </html>
